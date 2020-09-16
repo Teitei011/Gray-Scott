@@ -21,17 +21,6 @@ public:
   }
 };
 
-// std::string read_argument(int argc, char *argv[]) { // TODO: Make a read argument that works
-//   // We need exactly two arguments (considering program name).
-//   std::tuple<double, double, double, double, double, std::string> answer;
-//   if (argc != 7) {
-//     std::cout << "Usage: " << argv[0] << "<D_a> <D_b> <Food> <Kill> <Iterations> <filename>\n";
-//     exit(1);
-//   }
-//
-//   answer =  (argv[1], argv[2], argv[3], argv[4], argv[5], argv[6]);
-//   return answer;
-// }
 
 void inicializando_matrix_cell(std::vector<std::vector<Cell>> &matrix, int N) {
   // Inicializando as grids
@@ -110,7 +99,7 @@ double laplaceB2(std::vector<std::vector<Cell>> &matrix, int x, int y) {
 }
 
 void matrixA2raw(std::vector<std::vector<Cell>> &matrix, int number) {
-  const char *path="C:\\Users/stefa/Desktop/Cursos/Modelagem Matematica Computacional/Projeto 5/ImagesA";
+  const char *path="Images/ImagesA";
   std::ofstream output(path);
   std::string write_raw;
   write_raw = "A_" +  std::to_string(number) + ".raw";
@@ -128,6 +117,24 @@ void matrixA2raw(std::vector<std::vector<Cell>> &matrix, int number) {
   }output.close();
 }
 
+void matrixB2raw(std::vector<std::vector<Cell>> &matrix, int number) {
+  const char *path="Images/ImagesB";
+  std::ofstream output(path);
+  std::string write_raw;
+  write_raw = "A_" +  std::to_string(number) + ".raw";
+
+  output.open(write_raw);
+  if (output.good()) {
+    for (unsigned int i = 0; i < matrix.size(); i++) {
+      for (unsigned int j = 0; j < matrix[0].size(); j++){
+        output << std::to_string(int(255. * matrix[i][j]._A)) << " ";
+      }
+      output << std::endl;
+    }
+  } else {
+  std::cerr << "Error in the: " << write_raw << " iteration" << std::endl;
+  }output.close();
+}
 
 int main(int argc, char const *argv[]) {
   double elapsed{0};
@@ -190,12 +197,12 @@ int main(int argc, char const *argv[]) {
 
     swap(grid, next);
 
-    // std::cout << "Iteração: " << i << '\n';
+    std::cout << "Iteração: " << i << '\n';
     // show_B(grid);
 
     // Salvando o estado para criar uma imagem depois
     // matrixA2raw(grid, i);
-    // matrixB2raw(grid, i);
+    matrixB2raw(grid, i);
 
   }
   std::system("mv *.raw \\Images");
@@ -203,7 +210,7 @@ int main(int argc, char const *argv[]) {
 
   // matrixA2raw(grid, 1);
 
-  // t2 = chrono::high_resolution_clock::now();
+  t2 = chrono::high_resolution_clock::now();
 
   auto dt = chrono::duration_cast<chrono::microseconds>(t2 - t1);
   elapsed += dt.count();
@@ -213,7 +220,3 @@ int main(int argc, char const *argv[]) {
             << "\nTime Taken: " << elapsed / 1.0 / 1e6 << std::endl;
   return 0;
 }
-
-// grid[j][k]._A = next[j][k]._A + (D_a * laplaceA2(next, j, k) - buffer_ab + Food * (1. - next[j][k]._A));
-// grid[j][k]._B = next[j][k]._B + (D_b * laplaceB2(next, j, k) + buffer_ab - (Kill + Food) * next[j][k]._B);
-// }
