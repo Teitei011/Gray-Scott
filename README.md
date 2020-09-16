@@ -9,4 +9,4 @@ g++ -std=c++17 -Wall -Wpedantic -Wextra -O2 Gray_Scott.cpp -o GrayScott.exe
 
 ## Equação 
 
-$$ \frac{\partial u}{\partial t }
+$$ \frac{\partial u}{\partial t } $$
