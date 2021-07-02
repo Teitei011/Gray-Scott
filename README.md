@@ -29,6 +29,13 @@ g++ -std=c++17 -Wall -Wpedantic -Wextra -O2 Gray_Scott.cpp -o GrayScott.exe
 
 # Variables that you can try
 
+D_u	D_v	F	k	Output
+0.2	0.1	0.02	0.048	
+0.2	0.1	0.03	0.0545	
+0.2	0.1	0.03	0.06	
+0.2	0.1	0.01	0.05	
+0.2	0.1	0.02	0.06	
+
 
 # A better explanation
 

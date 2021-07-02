@@ -121,13 +121,13 @@ void matrixB2raw(std::vector<std::vector<Cell>> &matrix, int number) {
   const char *path="Images/ImagesB";
   std::ofstream output(path);
   std::string write_raw;
-  write_raw = "A_" +  std::to_string(number) + ".raw";
+  write_raw = "B_" +  std::to_string(number) + ".raw";
 
   output.open(write_raw);
   if (output.good()) {
     for (unsigned int i = 0; i < matrix.size(); i++) {
       for (unsigned int j = 0; j < matrix[0].size(); j++){
-        output << std::to_string(int(255. * matrix[i][j]._A)) << " ";
+        output << std::to_string(int(255. * matrix[i][j]._B)) << " ";
       }
       output << std::endl;
     }
@@ -138,7 +138,6 @@ void matrixB2raw(std::vector<std::vector<Cell>> &matrix, int number) {
 
 int main(int argc, char const *argv[]) {
   double elapsed{0};
-  std::string filename;
   chrono::high_resolution_clock::time_point t1, t2;
 
   double D_a, D_b, Food, Kill;
@@ -148,8 +147,8 @@ int main(int argc, char const *argv[]) {
   int iteracoes;
 
   // Pegando os argumentos dados no inicio da funcao
-  if (argc != 8) {
-    std::cout << "Usage: " << argv[0] << " <D_a> <D_b> <Food> <Kill> <Resolution> <Iterations> <filename>\n";
+  if (argc != 7) {
+    std::cout << "Usage: " << argv[0] << " <D_a> <D_b> <Food> <Kill> <Resolution> <Iterations> \n";
     exit(1);
   }
 
@@ -160,7 +159,6 @@ int main(int argc, char const *argv[]) {
   Kill =  std::atof(argv[4]);
   N =  std::stoi(argv[5]);
   iteracoes =  std::stoi(argv[6]);
-  filename =  argv[7];
 
   N +=2; // Evitando assim o problema das laterais
 
@@ -217,6 +215,6 @@ int main(int argc, char const *argv[]) {
 
   // Show timing results
   std::cout << "Iterations: " << iteracoes
-            << "\nTime Taken: " << elapsed / 1.0 / 1e6 << std::endl;
+            << "\nTime Taken: " << elapsed / 1.0 / 1e6 << " seconds" << std::endl;
   return 0;
 }
